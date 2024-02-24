@@ -1,0 +1,13 @@
+Exception (OK)
+migration
+Routing
+Middleware
+CRUD
+- CREATE
+- READ
+- UPDATE
+- DELETE
+AUTH
+- login
+- session
+- middleware auth/role
