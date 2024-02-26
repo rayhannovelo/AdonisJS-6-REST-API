@@ -19,7 +19,7 @@ export default class UsersController extends BaseController {
    * Handle form submission for the create action
    */
   async store({ request }: HttpContext) {
-    const data = request.body()
+    const payload = request.body()
     const validator = vine.compile(
       vine.object({
         full_name: vine.string().optional(),
@@ -30,11 +30,11 @@ export default class UsersController extends BaseController {
         password: vine.string().minLength(8).maxLength(32).confirmed(),
       })
     )
-    const output = await validator.validate(data)
+    const output = await validator.validate(payload)
 
-    const user = await User.create(output)
+    const data = await User.create(output)
 
-    this.response('User created successfully', user)
+    this.response('User created successfully', data)
   }
 
   /**
@@ -50,7 +50,7 @@ export default class UsersController extends BaseController {
    * Handle form submission for the edit action
    */
   async update({ params, request }: HttpContext) {
-    const data = request.body()
+    const payload = request.body()
     const validator = vine.compile(
       vine.object({
         id: vine.string().use(existsRule({ table: 'users', column: 'id' })),
@@ -64,21 +64,21 @@ export default class UsersController extends BaseController {
         password: vine.string().minLength(8).maxLength(32).confirmed().optional(),
       })
     )
-    const output = await validator.validate({ id: params.id, ...data })
+    const output = await validator.validate({ id: params.id, ...payload })
 
-    const user = await User.find(params.id)
-    await user?.merge(output).save()
+    const data = await User.find(params.id)
+    await data?.merge(output).save()
 
-    this.response('User updated successfully', user)
+    this.response('User updated successfully', data)
   }
 
   /**
    * Delete record
    */
   async destroy({ params }: HttpContext) {
-    const user = await User.find(params.id)
-    await user?.delete()
+    const data = await User.find(params.id)
+    await data?.delete()
 
-    this.response('User deleted successfully', user)
+    this.response('User deleted successfully', data)
   }
 }
