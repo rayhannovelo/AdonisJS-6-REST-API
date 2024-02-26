@@ -26,6 +26,7 @@
     "#providers/*": "./providers/*.js",
     "#policies/*": "./app/policies/*.js",
     "#abilities/*": "./app/abilities/*.js",
+    "#rules/*": "./app/rules/*.js",
     "#database/*": "./database/*.js",
     "#start/*": "./start/*.js",
     "#tests/*": "./tests/*.js",
@@ -43,7 +44,7 @@
     "@swc/core": "^1.3.107",
     "@types/luxon": "^3.4.2",
     "@types/node": "^20.11.10",
-    "eslint": "^8.56.0",
+    "eslint": "^8.57.0",
     "pino-pretty": "^10.3.1",
     "prettier": "^3.2.4",
     "ts-node": "^10.9.2",
@@ -60,7 +61,11 @@
     "reflect-metadata": "^0.2.1"
   },
   "eslintConfig": {
-    "extends": "@adonisjs/eslint-config/app"
+    "extends": "@adonisjs/eslint-config/app",
+    "rules": {
+      "no-console": 0,
+      "no-unused-vars": 0
+    }
   },
   "prettier": "@adonisjs/prettier-config"
 }

@@ -1,6 +1,7 @@
 import app from '@adonisjs/core/services/app'
 import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 import { errors } from '@adonisjs/core'
+import { errors as VineErrors } from '@vinejs/vine'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -15,7 +16,18 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    */
   async handle(error: unknown, ctx: HttpContext) {
     if (error instanceof errors.E_ROUTE_NOT_FOUND) {
-      return ctx.response.status(error.status).send('Route not found.')
+      return ctx.response.status(error.status).send({
+        success: false,
+        message: 'Route not found',
+      })
+    }
+
+    if (error instanceof VineErrors.E_VALIDATION_ERROR) {
+      return ctx.response.status(error.status).send({
+        success: false,
+        message: 'validation error',
+        data: error.messages,
+      })
     }
 
     return super.handle(error, ctx)

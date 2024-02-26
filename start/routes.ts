@@ -8,17 +8,19 @@
 */
 
 import router from '@adonisjs/core/services/router'
+const UsersController = () => import('#controllers/users_controller')
 
-router.get('/', async () => {
-  return {
-    hello: 'world',
-  }
-})
+router
+  .group(() => {
+    router.get('/', async () => {
+      return { success: true, message: 'I AM YOUR FATHER!' }
+    })
 
-router.get('/about', () => {
-  return 'This is the about page.'
-})
-
-router.get('/posts/:id', ({ params }) => {
-  return `This is post with id ${params.id}`
-})
+    // users
+    router.get('/users', [UsersController, 'index'])
+    router.get('/users/:id', [UsersController, 'show'])
+    router.post('/users', [UsersController, 'store'])
+    router.put('/users/:id', [UsersController, 'update'])
+    router.delete('/users/:id', [UsersController, 'destroy'])
+  })
+  .prefix('/api')
