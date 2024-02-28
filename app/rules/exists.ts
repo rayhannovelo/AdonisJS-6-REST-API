@@ -5,7 +5,7 @@ import db from '@adonisjs/lucid/services/db'
 /**
  * Options accepted by the exists rule
  */
-type Options = {
+export type Options = {
   table: string
   column: string
 }
