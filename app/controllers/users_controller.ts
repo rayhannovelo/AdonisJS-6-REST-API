@@ -41,7 +41,7 @@ export default class UsersController extends BaseController {
    * Show individual record
    */
   async show({ params }: HttpContext) {
-    const data = await User.find(params.id)
+    const data = await User.findOrFail(params.id)
 
     this.response('User retrieved successfully', data)
   }

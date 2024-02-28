@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon'
 import { withAuthFinder } from '@adonisjs/auth'
+import { AccessToken } from '@adonisjs/auth/access_tokens'
 import hash from '@adonisjs/core/services/hash'
 import { compose } from '@adonisjs/core/helpers'
 import { BaseModel, column, beforeSave } from '@adonisjs/lucid/orm'
@@ -47,5 +48,13 @@ export default class User extends compose(BaseModel, AuthFinder) {
     }
   }
 
-  static accessTokens = DbAccessTokensProvider.forModel(User)
+  static accessTokens = DbAccessTokensProvider.forModel(User, {
+    expiresIn: '30 days',
+    prefix: 'ray_',
+    table: 'auth_access_tokens',
+    type: 'auth_token',
+    tokenSecretLength: 40,
+  })
+
+  currentAccessToken?: AccessToken
 }

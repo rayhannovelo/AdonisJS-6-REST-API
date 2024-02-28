@@ -24,7 +24,7 @@ export default class BaseController {
   /**
    * send error response method.
    */
-  async responseError(message: string, data: any = '', code: number = 404) {
+  async responseError(message: string, data: any = '', code: number = 400) {
     let response: any = {
       success: false,
       message,
