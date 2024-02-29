@@ -7,7 +7,7 @@ import { BaseModel, column, beforeSave } from '@adonisjs/lucid/orm'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
-  uids: ['email'],
+  uids: ['username'],
   passwordColumnName: 'password',
 })
 
@@ -16,13 +16,28 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare id: number
 
   @column()
-  declare fullName: string | null
+  declare user_role_id: number
 
   @column()
-  declare email: string
+  declare user_status_id: number
+
+  @column()
+  declare username: string
 
   @column({ serializeAs: null })
   declare password: string
+
+  @column()
+  declare name: string | null
+
+  @column()
+  declare email: string | null
+
+  @column()
+  declare email_verified_at: string | null
+
+  @column()
+  declare photo: string | null
 
   @column.dateTime({
     autoCreate: true,
@@ -30,7 +45,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
       return value ? value.toFormat('yyyy-MM-dd HH:mm:ss') : value
     },
   })
-  declare createdAt: DateTime
+  declare created_at: DateTime
 
   @column.dateTime({
     autoCreate: true,
@@ -39,7 +54,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
       return value ? value.toFormat('yyyy-MM-dd HH:mm:ss') : value
     },
   })
-  declare updatedAt: DateTime | null
+  declare updated_at: DateTime | null
 
   @beforeSave()
   static async hashPassword(user: User) {
