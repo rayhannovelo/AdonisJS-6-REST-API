@@ -13,6 +13,10 @@ import { middleware } from '#start/kernel'
 const AuthController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 
+router.get('/', async ({ response }) => {
+  response.redirect().toPath('/api')
+})
+
 router
   .group(() => {
     router.get('/', async () => {
