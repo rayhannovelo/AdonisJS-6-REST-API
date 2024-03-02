@@ -12,7 +12,7 @@ export default class AppProvider {
    * The container bindings have booted
    */
   async boot() {
-    await import('./src/extensions.js')
+    // await import('./src/extensions.js')
   }
 
   /**

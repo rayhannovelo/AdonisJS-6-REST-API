@@ -1,13 +1,19 @@
 Exception (OK)
-migration
-Routing
-Middleware
-CRUD
+migration (OK)
+seeder (OK)
+Routing (OK)
+Middleware (OK)
+CRUD (OK)
 - CREATE
 - READ
 - UPDATE
 - DELETE
-AUTH
+- UPLOAD FILE
+VALIDATION VINEJS (OK)
+- RULE UNIQUE, EXIST
+AUTH (OK)
 - login
-- session
+- profile
+- refresh token
+- logout
 - middleware auth/role

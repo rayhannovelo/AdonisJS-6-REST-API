@@ -8,8 +8,8 @@ export default class extends BaseSeeder {
      */
     if (
       !Seeder.default.environment ||
-      (!Seeder.default.environment.includes('development') && app.inDev) ||
-      (!Seeder.default.environment.includes('testing') && app.inTest) ||
+      // (!Seeder.default.environment.includes('development') && app.inDev) ||
+      // (!Seeder.default.environment.includes('testing') && app.inTest) ||
       (!Seeder.default.environment.includes('production') && app.inProduction)
     ) {
       return

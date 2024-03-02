@@ -1,5 +1,5 @@
-import { VineString } from '@vinejs/vine'
-import { existsRule, Options } from '#rules/exists'
+// import { VineString } from '@vinejs/vine'
+// import { existsRule, Options } from '#rules/exists'
 
 // declare module '@vinejs/vine' {
 //   interface VineString {

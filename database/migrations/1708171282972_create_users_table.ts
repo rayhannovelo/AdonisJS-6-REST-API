@@ -9,12 +9,14 @@ export default class extends BaseSchema {
       table
         .integer('user_role_id')
         .unsigned()
+        .notNullable()
         .references('user_roles.id')
         .onDelete('RESTRICT')
         .onUpdate('CASCADE')
       table
         .integer('user_status_id')
         .unsigned()
+        .notNullable()
         .references('user_statuses.id')
         .onDelete('RESTRICT')
         .onUpdate('CASCADE')

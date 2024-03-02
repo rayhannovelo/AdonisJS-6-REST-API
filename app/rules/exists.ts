@@ -7,7 +7,7 @@ import db from '@adonisjs/lucid/services/db'
  */
 export type Options = {
   table: string
-  column: string
+  column: any
 }
 
 /**
@@ -19,7 +19,7 @@ async function exists(value: unknown, options: Options, field: FieldContext) {
    * values. The "string" rule will handle the
    * the validation.
    */
-  if (typeof value !== 'string') {
+  if (typeof value !== 'string' && typeof value !== 'number') {
     return
   }
 

@@ -8,7 +8,7 @@ import db from '@adonisjs/lucid/services/db'
 type Options = {
   table: string
   column: string
-  except?: string
+  except?: any
   exceptColumn?: string
 }
 
@@ -23,16 +23,22 @@ async function unique(value: unknown, options: Options, field: FieldContext) {
    * values. The "string" rule will handle the
    * the validation.
    */
-  if (typeof value !== 'string') {
+  if (typeof value !== 'string' && typeof value !== 'number') {
     return
   }
 
+  // get old email
   if (options.except) {
     oldValue = await db
       .from(options.table)
       .select(options.column)
       .where(options.exceptColumn!, options.except)
       .first()
+
+    if (!oldValue) {
+      return
+    }
+
     oldValue = oldValue[options.column]
   }
 
