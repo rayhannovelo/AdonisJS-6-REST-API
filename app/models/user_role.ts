@@ -6,7 +6,7 @@ export default class UserRole extends BaseModel {
   declare id: number
 
   @column()
-  declare user_role_name: string | null
+  declare user_role_name: string
 
   @column()
   declare user_role_description: string | null

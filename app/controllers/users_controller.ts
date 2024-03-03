@@ -84,7 +84,7 @@ export default class UsersController extends BaseController {
     const payload = request.body()
     const validator = vine.compile(
       vine.object({
-        id: vine.string().use(existsRule({ table: 'users', column: 'id' })),
+        id: vine.number().use(existsRule({ table: 'users', column: 'id' })),
         user_status_id: vine.number().use(existsRule({ table: 'user_statuses', column: 'id' })),
         user_role_id: vine.number().use(existsRule({ table: 'user_roles', column: 'id' })),
         username: vine.string().use(

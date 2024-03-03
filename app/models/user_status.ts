@@ -6,7 +6,7 @@ export default class UserStatus extends BaseModel {
   declare id: number
 
   @column()
-  declare user_status_name: string | null
+  declare user_status_name: string
 
   @column()
   declare user_status_description: string | null

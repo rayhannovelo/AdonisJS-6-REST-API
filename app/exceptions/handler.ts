@@ -16,7 +16,7 @@ export default class HttpExceptionHandler extends ExceptionHandler {
    * response to the client
    */
   async handle(error: unknown, ctx: HttpContext) {
-    console.log(error)
+    console.log('Error', error)
 
     if (error instanceof errors.E_ROUTE_NOT_FOUND) {
       return ctx.response.status(error.status).send({
@@ -46,6 +46,11 @@ export default class HttpExceptionHandler extends ExceptionHandler {
       return ctx.response.status(customError.status).send({
         success: false,
         message: 'Data row not found',
+      })
+    } else if (customError.code === 'ER_ROW_IS_REFERENCED_2') {
+      return ctx.response.status(customError.status).send({
+        success: false,
+        message: 'Data that has been used cannot be deleted!',
       })
     }
 

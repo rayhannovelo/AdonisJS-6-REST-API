@@ -1,19 +1,24 @@
-Exception (OK)
-migration (OK)
-seeder (OK)
-Routing (OK)
+EXCEPTION HANDLING (OK)
+DATABASE (OK)
+MIGRATION (OK)
+SEEDER (OK)
+ROUTER (OK)
+- UPLOAD FILE PATH (OK)
 Middleware (OK)
-CRUD (OK)
-- CREATE
-- READ
-- UPDATE
-- DELETE
-- UPLOAD FILE
-VALIDATION VINEJS (OK)
-- RULE UNIQUE, EXIST
-AUTH (OK)
-- login
-- profile
-- refresh token
-- logout
-- middleware auth/role
+CRUD
+- CREATE (OK)
+- READ (OK)
+- UPDATE (OK)
+- DELETE (OK)
+- UPLOAD FILE (OK)
+VALIDATION VINEJS
+- RULE UNIQUE (OK)
+- EXIST (OK)
+AUTH
+- login (OK)
+- get profile (OK)
+- update profile (OK)
+- refresh token (OK)
+- logout (OK)
+- middleware auth/role (OK)
+BOUNCER / ROLE
