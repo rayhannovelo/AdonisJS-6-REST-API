@@ -21,8 +21,8 @@ export default class UserStatusesController extends BaseController {
     const payload = request.body()
     const validator = vine.compile(
       vine.object({
-        user_status_name: vine.string(),
-        user_status_description: vine.string().optional(),
+        userStatusName: vine.string(),
+        userStatusDescription: vine.string().optional(),
       })
     )
     const output = await validator.validate(payload)
@@ -48,8 +48,8 @@ export default class UserStatusesController extends BaseController {
     const validator = vine.compile(
       vine.object({
         id: vine.number().use(existsRule({ table: 'user_statuses', column: 'id' })),
-        user_status_name: vine.string(),
-        user_status_description: vine.string().optional(),
+        userStatusName: vine.string(),
+        userStatusDescription: vine.string().optional(),
       })
     )
     const output = await validator.validate({ id: params.id, ...payload })

@@ -21,8 +21,8 @@ export default class UserRolesController extends BaseController {
     const payload = request.body()
     const validator = vine.compile(
       vine.object({
-        user_role_name: vine.string(),
-        user_role_description: vine.string().optional(),
+        userRoleName: vine.string(),
+        userRoleDescription: vine.string().optional(),
       })
     )
     const output = await validator.validate(payload)
@@ -48,8 +48,8 @@ export default class UserRolesController extends BaseController {
     const validator = vine.compile(
       vine.object({
         id: vine.number().use(existsRule({ table: 'user_roles', column: 'id' })),
-        user_role_name: vine.string(),
-        user_role_description: vine.string().optional(),
+        userRoleName: vine.string(),
+        userRoleDescription: vine.string().optional(),
       })
     )
     const output = await validator.validate({ id: params.id, ...payload })

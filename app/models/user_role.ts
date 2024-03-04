@@ -6,14 +6,14 @@ export default class UserRole extends BaseModel {
   declare id: number
 
   @column()
-  declare user_role_name: string
+  declare userRoleName: string
 
   @column()
-  declare user_role_description: string | null
+  declare userRoleDescription: string | null
 
   @column.dateTime({ autoCreate: true })
-  declare created_at: DateTime
+  declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
-  declare updated_at: DateTime
+  declare updatedAt: DateTime
 }

@@ -7,6 +7,7 @@ import type { BelongsTo } from '@adonisjs/lucid/types/relations'
 import { BaseModel, column, belongsTo } from '@adonisjs/lucid/orm'
 import { DbAccessTokensProvider } from '@adonisjs/auth/access_tokens'
 import UserRole from '#models/user_role'
+import UserStatus from './user_status.js'
 
 const AuthFinder = withAuthFinder(() => hash.use('scrypt'), {
   uids: ['username'],
@@ -18,10 +19,10 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare id: number
 
   @column()
-  declare user_role_id: number
+  declare userRoleId: number
 
   @column()
-  declare user_status_id: number
+  declare userStatusId: number
 
   @column()
   declare username: string
@@ -36,7 +37,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
   declare email: string | null
 
   @column()
-  declare email_verified_at: string | null
+  declare emailVerifiedAt: string | null
 
   @column()
   declare photo: string | null
@@ -47,7 +48,7 @@ export default class User extends compose(BaseModel, AuthFinder) {
       return value ? value.toFormat('yyyy-MM-dd HH:mm:ss') : value
     },
   })
-  declare created_at: DateTime
+  declare createdAt: DateTime
 
   @column.dateTime({
     autoCreate: true,
@@ -56,9 +57,12 @@ export default class User extends compose(BaseModel, AuthFinder) {
       return value ? value.toFormat('yyyy-MM-dd HH:mm:ss') : value
     },
   })
-  declare updated_at: DateTime | null
+  declare updatedAt: DateTime | null
 
-  @belongsTo(() => UserRole, { localKey: 'id', foreignKey: 'user_role_id' })
+  @belongsTo(() => UserStatus)
+  declare user_status: BelongsTo<typeof UserStatus>
+
+  @belongsTo(() => UserRole)
   declare user_role: BelongsTo<typeof UserRole>
 
   static accessTokens = DbAccessTokensProvider.forModel(User, {

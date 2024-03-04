@@ -32,8 +32,8 @@ export default defineConfig({
     () => import('@adonisjs/cors/cors_provider'),
     () => import('@adonisjs/lucid/database_provider'),
     () => import('@adonisjs/auth/auth_provider'),
-    () => import('#providers/app_provider'),
     () => import('@adonisjs/static/static_provider'),
+    // () => import('#providers/app_provider'),
   ],
 
   /*
@@ -47,7 +47,7 @@ export default defineConfig({
   preloads: [
     () => import('#start/routes'),
     () => import('#start/kernel'),
-    () => import('#start/lucid'),
+    // () => import('#start/lucid'),
   ],
 
   /*

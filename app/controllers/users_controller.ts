@@ -25,15 +25,22 @@ export default class UsersController extends BaseController {
     const payload = request.body()
     const validator = vine.compile(
       vine.object({
-        user_status_id: vine.number().use(existsRule({ table: 'user_statuses', column: 'id' })),
-        user_role_id: vine.number().use(existsRule({ table: 'user_roles', column: 'id' })),
+        userStatusId: vine.number().use(existsRule({ table: 'user_statuses', column: 'id' })),
+        userRoleId: vine.number().use(existsRule({ table: 'user_roles', column: 'id' })),
         username: vine.string().use(
           uniqueRule({
             table: 'users',
             column: 'username',
           })
         ),
-        password: vine.string().minLength(8).maxLength(32).confirmed().optional(),
+        password: vine
+          .string()
+          .minLength(8)
+          .maxLength(32)
+          .confirmed({
+            confirmationField: 'passwordConfirmation',
+          })
+          .optional(),
         name: vine.string(),
         photo: vine.string().optional(),
         email: vine
@@ -73,6 +80,8 @@ export default class UsersController extends BaseController {
    */
   async show({ params }: HttpContext) {
     const data = await User.findOrFail(params.id)
+    await data.load('user_role')
+    await data.load('user_status')
 
     this.response('User retrieved successfully', data)
   }
@@ -85,8 +94,8 @@ export default class UsersController extends BaseController {
     const validator = vine.compile(
       vine.object({
         id: vine.number().use(existsRule({ table: 'users', column: 'id' })),
-        user_status_id: vine.number().use(existsRule({ table: 'user_statuses', column: 'id' })),
-        user_role_id: vine.number().use(existsRule({ table: 'user_roles', column: 'id' })),
+        userStatusId: vine.number().use(existsRule({ table: 'user_statuses', column: 'id' })),
+        userRoleId: vine.number().use(existsRule({ table: 'user_roles', column: 'id' })),
         username: vine.string().use(
           uniqueRule({
             table: 'users',
@@ -95,7 +104,14 @@ export default class UsersController extends BaseController {
             exceptColumn: 'id',
           })
         ),
-        password: vine.string().minLength(8).maxLength(32).confirmed().optional(),
+        password: vine
+          .string()
+          .minLength(8)
+          .maxLength(32)
+          .confirmed({
+            confirmationField: 'passwordConfirmation',
+          })
+          .optional(),
         name: vine.string(),
         photo: vine.string().optional(),
         email: vine
