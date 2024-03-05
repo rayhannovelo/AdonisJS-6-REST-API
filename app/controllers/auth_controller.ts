@@ -28,7 +28,7 @@ export default class AuthController extends BaseController {
       }
 
       // create token
-      const token = await User.accessTokens.create(user, ['user:create', 'user:read'], {
+      const token = await User.accessTokens.create(user, ['*'], {
         name: identity ?? cuid(),
       })
 

@@ -3,6 +3,7 @@ import { HttpContext, ExceptionHandler } from '@adonisjs/core/http'
 import { errors } from '@adonisjs/core'
 import { errors as AuthErrors } from '@adonisjs/auth'
 import { errors as VineErrors } from '@vinejs/vine'
+import { errors as BouncerErrors } from '@adonisjs/bouncer'
 
 export default class HttpExceptionHandler extends ExceptionHandler {
   /**
@@ -29,6 +30,13 @@ export default class HttpExceptionHandler extends ExceptionHandler {
       return ctx.response.status(error.status).send({
         success: false,
         message: 'Unauthorized access',
+      })
+    }
+
+    if (error instanceof BouncerErrors.E_AUTHORIZATION_FAILURE) {
+      return ctx.response.status(error.status).send({
+        success: false,
+        message: 'Unauthorized action',
       })
     }
 
