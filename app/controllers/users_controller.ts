@@ -82,6 +82,7 @@ export default class UsersController extends BaseController {
     const data = await User.findOrFail(params.id)
     await data.load('user_role')
     await data.load('user_status')
+    await data.load('posts')
 
     this.response('User retrieved successfully', data)
   }

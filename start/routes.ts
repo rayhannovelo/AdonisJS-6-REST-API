@@ -17,6 +17,7 @@ const AuthController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
 const UserRolesController = () => import('#controllers/user_roles_controller')
 const UserStatusesController = () => import('#controllers/user_statuses_controller')
+const PostsController = () => import('#controllers/posts_controller')
 
 router.get('/', ({ response }) => {
   response.redirect().toPath('/api')
@@ -63,6 +64,12 @@ router
             router.delete('/users/:id', [UsersController, 'destroy'])
           })
           .use(middleware.bouncer(manageUser))
+
+        router.get('/posts', [PostsController, 'index'])
+        router.post('/posts', [PostsController, 'store'])
+        router.get('/posts/:id', [PostsController, 'show'])
+        router.put('/posts/:id', [PostsController, 'update'])
+        router.delete('/posts/:id', [PostsController, 'destroy'])
       })
       .use(middleware.auth())
   })

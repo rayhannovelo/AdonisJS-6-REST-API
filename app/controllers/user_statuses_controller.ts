@@ -57,7 +57,7 @@ export default class UserStatusesController extends BaseController {
 
     await data?.merge(output).save()
 
-    this.response('User updated successfully', data)
+    this.response('User status updated successfully', data)
   }
 
   /**

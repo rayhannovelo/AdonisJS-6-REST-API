@@ -22,5 +22,5 @@ export const manageUser = Bouncer.ability((user: User) => {
     return true
   }
 
-  return AuthorizationResponse.deny('Unauthorized accesss', 401)
+  return AuthorizationResponse.deny('Unauthorized action', 401)
 })
