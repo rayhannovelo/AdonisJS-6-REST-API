@@ -18,6 +18,7 @@
       "#abilities/*": ["./app/abilities/*.js"],
       "#rules/*": ["./app/rules/*.js"],
       "#helpers/*": ["./app/helpers/*.js"],
+      "#constants/*": ["./app/constants/*.js"],
       "#database/*": ["./database/*.js"],
       "#tests/*": ["./tests/*.js"],
       "#start/*": ["./start/*.js"],

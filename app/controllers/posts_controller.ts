@@ -3,6 +3,7 @@ import vine from '@vinejs/vine'
 import BaseController from '#controllers/base_controller'
 import Post from '#models/post'
 import { existsRule } from '#rules/exists'
+import PostPolicy from '#policies/post_policy'
 
 export default class PostsController extends BaseController {
   /**
@@ -48,7 +49,7 @@ export default class PostsController extends BaseController {
   /**
    * Handle form submission for the edit action
    */
-  async update({ params, request, auth }: HttpContext) {
+  async update({ params, request, auth, bouncer }: HttpContext) {
     const user = await auth.authenticate()
     const payload = request.body()
     const validator = vine.compile(
@@ -62,6 +63,10 @@ export default class PostsController extends BaseController {
     const output = await validator.validate({ id: params.id, user_id: user.id, ...payload })
     const data = await Post.findOrFail(params.id)
 
+    if (await bouncer.with(PostPolicy).denies('edit', data)) {
+      return this.responseError('Cannot edit the post')
+    }
+
     await data?.merge(output).save()
 
     this.response('Post updated successfully', data)
@@ -70,8 +75,13 @@ export default class PostsController extends BaseController {
   /**
    * Delete record
    */
-  async destroy({ params }: HttpContext) {
+  async destroy({ params, bouncer }: HttpContext) {
     const data = await Post.findOrFail(params.id)
+
+    if (await bouncer.with(PostPolicy).denies('delete', data)) {
+      return this.responseError('Cannot delete the post')
+    }
+
     await data?.delete()
 
     this.response('Post deleted successfully')

@@ -11,7 +11,7 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
 
 // bouncer
-import { manageUser } from '#abilities/main'
+import { manageUser, managePost } from '#abilities/main'
 
 const AuthController = () => import('#controllers/auth_controller')
 const UsersController = () => import('#controllers/users_controller')
@@ -65,11 +65,15 @@ router
           })
           .use(middleware.bouncer(manageUser))
 
-        router.get('/posts', [PostsController, 'index'])
-        router.post('/posts', [PostsController, 'store'])
-        router.get('/posts/:id', [PostsController, 'show'])
-        router.put('/posts/:id', [PostsController, 'update'])
-        router.delete('/posts/:id', [PostsController, 'destroy'])
+        router
+          .group(() => {
+            router.get('/posts', [PostsController, 'index'])
+            router.post('/posts', [PostsController, 'store'])
+            router.get('/posts/:id', [PostsController, 'show'])
+            router.put('/posts/:id', [PostsController, 'update'])
+            router.delete('/posts/:id', [PostsController, 'destroy'])
+          })
+          .use(middleware.bouncer(managePost))
       })
       .use(middleware.auth())
   })
