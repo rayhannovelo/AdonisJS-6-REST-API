@@ -7,7 +7,7 @@ export default class PostPolicy extends BasePolicy {
   /**
    * Every logged-in user can create a post
    */
-  create(user: User): AuthorizerResponse {
+  create(): AuthorizerResponse {
     return true
   }
 
