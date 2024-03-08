@@ -8,7 +8,7 @@ import db from '@adonisjs/lucid/services/db'
 type Options = {
   table: string
   column: string
-  except?: any
+  except?: string | number
   exceptColumn?: string
 }
 
@@ -19,7 +19,7 @@ let oldValue: any
  */
 async function unique(value: unknown, options: Options, field: FieldContext) {
   /**
-   * We do not want to deal with non-string
+   * We do not want to deal with non-string or non-number
    * values. The "string" rule will handle the
    * the validation.
    */

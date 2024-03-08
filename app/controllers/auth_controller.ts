@@ -16,13 +16,13 @@ export default class AuthController extends BaseController {
       // check user
       const user = await User.findBy('username', username)
       if (!user) {
-        return this.responseError('Invalid credentials', '', 401)
+        return this.responseError('Invalid credentials', 401)
       }
 
       // check password
       const login = await hash.verify(user.password, password)
       if (!login) {
-        return this.responseError('Invalid credentials', '', 401)
+        return this.responseError('Invalid credentials', 401)
       }
 
       // create token
@@ -32,7 +32,7 @@ export default class AuthController extends BaseController {
 
       this.response('Login successfully', { user, user_token: token })
     } catch (error: any) {
-      this.responseError('Invalid credentials', '', error.status)
+      this.responseError('Invalid credentials', 400)
     }
   }
 
@@ -67,7 +67,7 @@ export default class AuthController extends BaseController {
     // upload photo
     if (photo) {
       if (!photo.isValid) {
-        return this.responseError('Validation error', photo.errors, 422)
+        return this.responseError('Validation error', 422, photo.errors)
       }
 
       // delete old file
@@ -94,7 +94,7 @@ export default class AuthController extends BaseController {
     await User.accessTokens.delete(user, user.currentAccessToken.identifier)
 
     // create new token
-    const token = await User.accessTokens.create(user, ['user:create', 'user:read'], {
+    const token = await User.accessTokens.create(user, ['*'], {
       name: cuid(),
     })
 

@@ -23,7 +23,7 @@ export const manageUser = Bouncer.ability((user: User) => {
     return true
   }
 
-  return AuthorizationResponse.deny('Unauthorized action', 401)
+  return AuthorizationResponse.deny('Unauthorized action', 403)
 })
 
 export const managePost = Bouncer.ability((user: User) => {
@@ -33,5 +33,5 @@ export const managePost = Bouncer.ability((user: User) => {
     return true
   }
 
-  return AuthorizationResponse.deny('Unauthorized action', 401)
+  return AuthorizationResponse.deny('Unauthorized action', 403)
 })

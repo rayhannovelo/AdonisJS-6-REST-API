@@ -8,14 +8,14 @@ export default class BaseController {
   /**
    * send success response method.
    */
-  async response(message: string, data: any = '', code: number = 200) {
-    let response: any = {
+  async response(message: string, data: any = null, code: number = 200) {
+    const response: { success: boolean; message: string; data?: any } = {
       success: true,
       message,
     }
 
-    if (typeof data === 'object') {
-      response.data = data ?? {}
+    if (data !== null) {
+      response.data = data
     }
 
     this.ctx.response.status(code).send(response)
@@ -24,14 +24,14 @@ export default class BaseController {
   /**
    * send error response method.
    */
-  async responseError(message: string, data: any = '', code: number = 400) {
-    let response: any = {
-      success: false,
+  async responseError(message: string, code: number = 400, data: any = null) {
+    const response: { success: boolean; message: string; data?: any } = {
+      success: true,
       message,
     }
 
-    if (typeof data === 'object') {
-      response.data = data ?? {}
+    if (data !== null) {
+      response.data = data
     }
 
     this.ctx.response.status(code).send(response)

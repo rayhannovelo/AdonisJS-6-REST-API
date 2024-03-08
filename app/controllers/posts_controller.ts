@@ -64,7 +64,7 @@ export default class PostsController extends BaseController {
     const data = await Post.findOrFail(params.id)
 
     if (await bouncer.with(PostPolicy).denies('edit', data)) {
-      return this.responseError('Cannot edit the post')
+      return this.responseError('Cannot edit the post', 403)
     }
 
     await data?.merge(output).save()
@@ -79,7 +79,7 @@ export default class PostsController extends BaseController {
     const data = await Post.findOrFail(params.id)
 
     if (await bouncer.with(PostPolicy).denies('delete', data)) {
-      return this.responseError('Cannot delete the post')
+      return this.responseError('Cannot delete the post', 403)
     }
 
     await data?.delete()

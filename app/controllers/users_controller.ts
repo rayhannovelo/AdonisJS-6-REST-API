@@ -59,7 +59,7 @@ export default class UsersController extends BaseController {
     // upload photo
     if (photo) {
       if (!photo.isValid) {
-        return this.responseError('Validation error', photo.errors, 422)
+        return this.responseError('Validation error', 422, photo.errors)
       }
 
       await photo.move(app.makePath('uploads/user-photo'), {
@@ -133,7 +133,7 @@ export default class UsersController extends BaseController {
     // upload photo
     if (photo) {
       if (!photo.isValid) {
-        return this.responseError('Validation error', photo.errors, 422)
+        return this.responseError('Validation error', 422, photo.errors)
       }
 
       // delete old file
