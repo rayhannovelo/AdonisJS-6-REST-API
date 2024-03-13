@@ -8,13 +8,13 @@ export default class extends BaseSeeder {
     await UserStatus.updateOrCreateMany('id', [
       {
         id: 1,
-        userStatusName: 'Aktif',
-        userStatusDescription: 'Akun aktif',
+        userStatusName: 'Active',
+        userStatusDescription: 'Active account',
       },
       {
         id: 2,
-        userStatusName: 'Akun tidak aktif',
-        userStatusDescription: 'Akun tidak aktif',
+        userStatusName: 'Non Active',
+        userStatusDescription: 'Non active account',
       },
     ])
   }

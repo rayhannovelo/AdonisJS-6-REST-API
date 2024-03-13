@@ -9,12 +9,12 @@ export default class extends BaseSeeder {
       {
         id: 1,
         userRoleName: 'Superadmin',
-        userRoleDescription: 'Semua fitur',
+        userRoleDescription: 'All features',
       },
       {
         id: 2,
         userRoleName: 'User',
-        userRoleDescription: 'Fitur User',
+        userRoleDescription: 'User features',
       },
     ])
   }
