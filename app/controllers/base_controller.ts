@@ -26,7 +26,7 @@ export default class BaseController {
    */
   async responseError(message: string, code: number = 400, data: any = null) {
     const response: { success: boolean; message: string; data?: any } = {
-      success: true,
+      success: false,
       message,
     }
 
