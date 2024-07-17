@@ -13,8 +13,8 @@ export default class extends BaseSeeder {
       },
       {
         id: 2,
-        userStatusName: 'Non Active',
-        userStatusDescription: 'Non active account',
+        userStatusName: 'Inactive',
+        userStatusDescription: 'Inactive account',
       },
     ])
   }
