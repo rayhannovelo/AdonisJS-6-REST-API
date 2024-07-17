@@ -13,7 +13,7 @@ export default class UsersController extends BaseController {
    * Display a list of resource
    */
   async index() {
-    const data = await User.all()
+    const data = await User.query().preload('user_role').preload('user_status')
 
     this.response('Users retrieved successfully', data)
   }
