@@ -53,7 +53,7 @@ export default class UsersController extends BaseController {
 
     const photo = request.file('photo', {
       size: '2mb',
-      extnames: ['jpg', 'png', 'jpeg'],
+      extnames: ['jpg', 'png', 'jpeg', 'webp'],
     })
 
     // upload photo
