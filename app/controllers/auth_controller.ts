@@ -38,6 +38,8 @@ export default class AuthController extends BaseController {
 
   async user({ auth }: HttpContext) {
     const user = await auth.authenticate()
+    await user.load('user_role')
+    await user.load('user_status')
 
     this.response('User retrieved successfully', user)
   }
