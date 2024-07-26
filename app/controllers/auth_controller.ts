@@ -31,6 +31,8 @@ export default class AuthController extends BaseController {
         name: identity ?? cuid(),
       })
 
+      await user.load('user_role')
+      await user.load('user_status')
       this.response('Login successfully', { user, user_token: token })
     } catch (error: any) {
       this.responseError('Invalid credentials', 400)
