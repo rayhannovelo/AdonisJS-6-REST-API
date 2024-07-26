@@ -27,7 +27,7 @@ async function unique(value: unknown, options: Options, field: FieldContext) {
     return
   }
 
-  // get old email
+  // get old value
   if (options.except) {
     oldValue = await db
       .from(options.table)

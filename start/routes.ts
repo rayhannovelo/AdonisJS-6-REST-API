@@ -38,6 +38,7 @@ router
         router.get('auth/user', [AuthController, 'user'])
         router.put('auth/user', [AuthController, 'update_user'])
         router.get('auth/refresh-token', [AuthController, 'refresh_token'])
+        router.put('auth/change-password', [AuthController, 'change_password'])
         router.post('auth/logout', [AuthController, 'logout'])
 
         router

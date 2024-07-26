@@ -6,6 +6,7 @@ import vine from '@vinejs/vine'
 import BaseController from '#controllers/base_controller'
 import User from '#models/user'
 import { uniqueRule } from '#rules/unique'
+import { verifyPasswordRule } from '#rules/verify_password'
 import fs from 'node:fs'
 
 export default class AuthController extends BaseController {
@@ -49,7 +50,6 @@ export default class AuthController extends BaseController {
     const payload = request.body()
     const validator = vine.compile(
       vine.object({
-        password: vine.string().minLength(8).maxLength(32).confirmed().optional(),
         name: vine.string().optional(),
         photo: vine.string().optional(),
         email: vine
@@ -89,6 +89,32 @@ export default class AuthController extends BaseController {
     await user?.merge(output).save()
 
     this.response('User updated successfully', user)
+  }
+
+  async change_password({ auth, request }: HttpContext) {
+    const user = await auth.authenticate()
+    const payload = request.body()
+    const validator = vine.compile(
+      vine.object({
+        currentPassword: vine.string().use(
+          verifyPasswordRule({
+            table: 'users',
+            column: 'id',
+            columnValue: user.id,
+            passwordColumn: 'password',
+          })
+        ),
+        password: vine.string().minLength(8).maxLength(32).confirmed({
+          confirmationField: 'passwordConfirmation',
+        }),
+      })
+    )
+    const output = await validator.validate(payload)
+
+    const { currentPassword, ...newOutput } = output
+    await user?.merge(newOutput).save()
+
+    this.response('Password changed successfully', user)
   }
 
   async refresh_token({ auth }: HttpContext) {
