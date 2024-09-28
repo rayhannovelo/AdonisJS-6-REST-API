@@ -26,6 +26,11 @@ export default class AuthController extends BaseController {
         return this.responseError('Invalid credentials', 401)
       }
 
+      // check user status
+      if (user.userStatusId !== 1) {
+        return this.responseError('Your account is inactive', 403)
+      }
+
       // create token
       const token = await User.accessTokens.create(user, ['*'], {
         name: identity ?? cuid(),
