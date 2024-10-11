@@ -13,5 +13,8 @@ This project is an example of implementing key features in AdonisJS 6 for REST A
 - **CRUD Examples**: users, user roles, user statuses and posts
 - **Others**: add global helper, add global constants, and add uploaded file route
 
+## Frontend Repo:
+- https://github.com/rayhannovelo/NextJS-Shadcn-Example
+
 ## Requirements:
 - **Node.js** >= 20.6
